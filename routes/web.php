@@ -1,17 +1,13 @@
 <?php
 
+// Utilizamos la función view para asignar el php de views que devolverá laravel
 Route::get('/', function() {
 
-	// La función route nos devulve la url de la ruta
-	echo '<a href="">' . route('contactos') . '</a>';
-
-	return 'Hola desde la página de inicio';
+	return view('home');
 
 });
 
 
-// Podemos definir un alias de contactos para referirnos a el
-// Si cambiamos el nombre de la ruta no nos afectará
 Route::get('contacto', ['as' => 'contactos',function(){
 
 	return 'Sección de contactos';
@@ -19,26 +15,11 @@ Route::get('contacto', ['as' => 'contactos',function(){
 }]);
 
 
-// Diferentes maneras de recibir variables
-// Variable nombre obligatoria
-Route::get('saludos1/{nombre}', function($nombre) {
+Route::get('saludo/{nombre?}', function($nombre = 'Invitado') {
 
-	return 'Hola ' . $nombre;
-
-});
-
-
-// Variable nombre opcional con valor por defecto
-Route::get('saludos2/{nombre?}', function($nombre = 'Invitado') {
-
-	return 'Hola ' . $nombre;
-
-});
-
-
-// Variable con validacion
-Route::get('saludos3/{nombre?}', function($nombre = 'Invitado') {
-
-	return 'Hola ' . $nombre;
+	// Pasando parametros al view
+	// return view('saludo', ['nombre' => $nombre]);
+	// return view('saludo')->with(['nombre' => $nombre]);
+	return view('saludo', compact('nombre'));
 
 })->where('nombre', '[A-Za-z]+');
