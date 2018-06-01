@@ -20,6 +20,9 @@ Route::get('saludo/{nombre?}', ['as' => 'saludos', function($nombre = 'Invitado'
 	// Pasando parametros al view
 	// return view('saludo', ['nombre' => $nombre]);
 	// return view('saludo')->with(['nombre' => $nombre]);
-	return view('saludo', compact('nombre'));
+
+	$html = '<h2>Código html</h2>';
+
+	return view('saludo', compact('nombre', 'html'));
 
 }])->where('nombre', '[A-Za-z]+');

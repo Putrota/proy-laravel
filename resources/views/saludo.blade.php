@@ -5,7 +5,9 @@
 </head>
 <body>
 
-	<h1>Saludos para <?=$nombre?></h1>
+	<h1>Saludos para {{ $nombre }}</h1>
+
+	{!! $html !!}
 
 </body>
 </html>
