@@ -1,11 +1,11 @@
 <?php
 
 // Utilizamos la función view para asignar el php de views que devolverá laravel
-Route::get('/', function() {
+Route::get('/', ['as' => 'home', function() {
 
 	return view('home');
 
-});
+}]);
 
 
 Route::get('contacto', ['as' => 'contactos',function(){
@@ -15,11 +15,11 @@ Route::get('contacto', ['as' => 'contactos',function(){
 }]);
 
 
-Route::get('saludo/{nombre?}', function($nombre = 'Invitado') {
+Route::get('saludo/{nombre?}', ['as' => 'saludos', function($nombre = 'Invitado') {
 
 	// Pasando parametros al view
 	// return view('saludo', ['nombre' => $nombre]);
 	// return view('saludo')->with(['nombre' => $nombre]);
 	return view('saludo', compact('nombre'));
 
-})->where('nombre', '[A-Za-z]+');
+}])->where('nombre', '[A-Za-z]+');
