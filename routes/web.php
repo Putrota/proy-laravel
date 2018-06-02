@@ -10,7 +10,7 @@ Route::get('/', ['as' => 'home', function() {
 
 Route::get('contacto', ['as' => 'contactos',function(){
 
-	return 'Sección de contactos';
+	return view('contactos');
 
 }]);
 
@@ -23,6 +23,9 @@ Route::get('saludo/{nombre?}', ['as' => 'saludos', function($nombre = 'Invitado'
 
 	$html = '<h2>Código html</h2>';
 
-	return view('saludo', compact('nombre', 'html'));
+	$naruto_amigos = ['Naruto', 'Shakura', 'Sasuke'];
+	$naruto_enemigos = [];
+
+	return view('saludo', compact('nombre', 'html', 'naruto_amigos', 'naruto_enemigos'));
 
 }])->where('nombre', '[A-Za-z]+');

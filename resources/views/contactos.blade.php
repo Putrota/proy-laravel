@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Contactos</title>
-</head>
-<body>
+@extends('layout')
 
-<h1>Contactos</h1>
 
-</body>
-</html>
+@section('contenido')
+
+	<h1>Contactos con blade</h1>
+
+@stop

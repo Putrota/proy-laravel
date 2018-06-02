@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
+@extends('layout')
 
-	<h1>Home</h1>
 
-	<header>
-		<nav>
-			<a href="<?=route('home')?>">Inicio</a>
-			<a href="<?=route('saludos', 'Jorge')?>">Saludo</a>
-			<a href="<?=route('contactos')?>">Contacto</a>
-		</nav>
-	</header>	
+@section('contenido')
 
-</body>
-</html>
+	<h1>Home con blade</h1>
+
+@stop
