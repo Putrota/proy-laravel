@@ -3,15 +3,43 @@
 <head>
 	<meta charset="utf-8">
 
+	<style type="text/css">
+		
+		.active {
+			text-decoration: none;
+			color: green;
+		}
+
+	</style>
+
 	<title>Mi sitio</title>
 </head>
 <body>
 
+	<?php /* Esta función nos la proporciona Ilumitane/Http/Request
+
+	// url actual
+	{{ request()->url() }} 
+
+	// Comprobar si estoy en una url
+	{{ request()->is('/') ? 'Estás en el home' : 'No estás en el home' }}
+
+	*/ 
+
+	function activeMenu( $url )
+	{
+
+		return request()->is($url) ? 'active' : '';
+
+	}
+
+	?>	
+
 	<header>
 		<nav>
-			<a href="<?=route('home')?>">Inicio</a>
-			<a href="<?=route('saludos', 'Jorge')?>">Saludo</a>
-			<a href="<?=route('contactos')?>">Contacto</a>
+			<a class="{{ activeMenu('/') }}" href="{{ route('home') }}">Inicio</a>
+			<a class="{{ activeMenu('saludo/*') }}" href="{{ route('saludos', 'Jorge') }}">Saludo</a>
+			<a class="{{ activeMenu('contacto') }}" href="{{ route('contactos') }}">Contacto</a>
 		</nav>
 	</header>	
 
