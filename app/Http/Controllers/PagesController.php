@@ -8,17 +8,6 @@ class PagesController extends Controller
 {
 
 
-    protected $request;
-
-
-    public function __construct(Request $request)
-    {
-
-        $this->request = $request;
-
-    }
-
-
     public function home()
     {
 
@@ -38,7 +27,13 @@ class PagesController extends Controller
     public function mensajes(Request $request)
     {
 
-        return $this->request->all();
+        $this->validate($request, [
+            'nombre' => 'required',
+            'email' => 'required|email',
+            'mensaje' => 'required|min:5',
+        ]);
+
+        return $request->all();
 
     }
 
