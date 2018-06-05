@@ -8,6 +8,17 @@ class PagesController extends Controller
 {
 
 
+    protected $request;
+
+
+    public function __construct(Request $request)
+    {
+
+        $this->request = $request;
+
+    }
+
+
     public function home()
     {
 
@@ -20,6 +31,14 @@ class PagesController extends Controller
     {
 
     	return view('contactos');
+
+    }
+
+
+    public function mensajes(Request $request)
+    {
+
+        return $this->request->all();
 
     }
 
