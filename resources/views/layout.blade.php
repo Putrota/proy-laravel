@@ -10,6 +10,10 @@
 			color: green;
 		}
 
+		.error {
+			color: red;			
+		}
+
 	</style>
 
 	<title>Mi sitio</title>

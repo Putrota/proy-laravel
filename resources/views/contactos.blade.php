@@ -14,7 +14,7 @@
 
 			<input type="text" name="nombre" value="{{ old('nombre') }}">
 
-			{{ $errors->first('nombre') }}
+			{!! $errors->first('nombre', '<span class="error">:message</span>') !!}
 
 			</label>
 		</p>
@@ -24,7 +24,7 @@
 
 			<input type="text" name="email" value="{{ old('email') }}">
 
-			{{ $errors->first('email') }}
+			{!! $errors->first('email', '<span class="error">:message</span>') !!}
 
 			</label>
 		</p>
@@ -34,7 +34,7 @@
 
 			<textarea name="mensaje" >{{ old('mensaje') }}</textarea>
 
-			{{ $errors->first('mensaje') }}
+			{!! $errors->first('mensaje', '<span class="error">:message</span>') !!}
 
 			</label>
 		</p>
