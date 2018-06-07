@@ -7,41 +7,46 @@
 
 	<h2>Escríbeme</h2>
 
-	<form method="POST" action="contacto">
+	@if(session()->has('info'))
+		<h3>{{ session('info') }}</h3>
+	@else
 
-		<p>			
-			<label for="nombre" >Nombre
+		<form method="POST" action="contacto">
 
-			<input type="text" name="nombre" value="{{ old('nombre') }}">
+			<p>			
+				<label for="nombre" >Nombre
 
-			{!! $errors->first('nombre', '<span class="error">:message</span>') !!}
+				<input type="text" name="nombre" value="{{ old('nombre') }}">
 
-			</label>
-		</p>
+				{!! $errors->first('nombre', '<span class="error">:message</span>') !!}
 
-		<p>
-			<label for="email" >Email
+				</label>
+			</p>
 
-			<input type="text" name="email" value="{{ old('email') }}">
+			<p>
+				<label for="email" >Email
 
-			{!! $errors->first('email', '<span class="error">:message</span>') !!}
+				<input type="text" name="email" value="{{ old('email') }}">
 
-			</label>
-		</p>
+				{!! $errors->first('email', '<span class="error">:message</span>') !!}
 
-		<p>
-			<label for="mensaje" >Mensaje
+				</label>
+			</p>
 
-			<textarea name="mensaje" >{{ old('mensaje') }}</textarea>
+			<p>
+				<label for="mensaje" >Mensaje
 
-			{!! $errors->first('mensaje', '<span class="error">:message</span>') !!}
+				<textarea name="mensaje" >{{ old('mensaje') }}</textarea>
 
-			</label>
-		</p>
+				{!! $errors->first('mensaje', '<span class="error">:message</span>') !!}
 
-		<p>
-			<input type="submit" name="Enviar">
-		</p>
-	</form>
+				</label>
+			</p>
+
+			<p>
+				<input type="submit" name="Enviar">
+			</p>
+		</form>
+	@endif
 
 @stop

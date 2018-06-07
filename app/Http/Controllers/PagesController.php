@@ -13,7 +13,7 @@ class PagesController extends Controller
     public function home()
     {
 
-    	return view('home');
+        return view('home');
 
     }
 
@@ -29,7 +29,20 @@ class PagesController extends Controller
     public function mensajes(CreateMessageRequest $request)
     {
 
-        return $request->all();
+        //return $request->all();
+
+        /*$data = $request->all();
+
+        return response()->json([
+            'data' => $data
+        ], 202)
+        ->header('TOKEN', 'secret');*/
+
+        /*return redirect()
+            ->route('contactos')
+            ->with('info', 'Tu mensaje se ha enviado correctamente');*/
+
+        return back()->with('info', 'Tu mensaje se ha enviado correctamente');
 
     }
 
