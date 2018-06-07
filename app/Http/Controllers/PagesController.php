@@ -10,6 +10,14 @@ class PagesController extends Controller
 {
 
 
+    public function __construct()
+    {
+
+        $this->middleware('example2', ['except' => 'home']);
+        // ['only' => 'home']
+    }
+
+
     public function home()
     {
 

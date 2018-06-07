@@ -13,6 +13,10 @@
 
 		<form method="POST" action="contacto">
 
+			<?php /*<input type="hidden" name="_token" value="{{ csrf_token() }}"> */ ?>
+
+			{!! csrf_field() !!}
+
 			<p>			
 				<label for="nombre" >Nombre
 
