@@ -13,5 +13,6 @@ route()
 redirect()
 back()
 csrf_token()
+$this->middleware()
 
 Middleware, un guardian una capa que intercepta las peticiones del usuario y verifica que cumpla sus reglas, si algo falla la petición es terminada
