@@ -14,6 +14,7 @@ redirect()
 back()
 csrf_token()
 $this->middleware()
+$request
 
 Middleware, un guardian una capa que intercepta las peticiones del usuario y verifica que cumpla sus reglas, si algo falla la petición es terminada
 
@@ -38,3 +39,16 @@ php artisan migrate:rollback // deshará los últimos cambios
 // Hace un rollback y actualiza todo
 // Borra datos
 php artisan migrate:refresh
+
+
+
+// Para investigar un comando ponemos -h
+php artisan make:controller -h MessagesController
+
+// Crear un controller REST
+php artisan make:controller MessagesController --resource
+
+
+Clases especiales
+use Carbon\Carbon; // manejo de fechas
+use DB; // Operaciones con bases de datos
