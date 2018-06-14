@@ -82,7 +82,11 @@ class MessagesController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        $message = DB::table('messages')->where('id', $id)->first();
+
+        return view('messages.edit', compact('message'));
+
     }
 
     /**
@@ -94,7 +98,18 @@ class MessagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        //Actualizar mensaje
+        DB::table('messages')->where('id', $id)->update([
+            "nombre" => $request->input('nombre'),
+            "email" => $request->input('email'),
+            "mensaje" => $request->input('mensaje'),            
+            "updated_at" => Carbon::now(),
+        ]);
+
+        // Redireccionar
+        return redirect()->route('messages.index');
+
     }
 
     /**
@@ -105,6 +120,12 @@ class MessagesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        // Eliminar mensaje
+        DB::table('messages')->where('id', $id)->delete();
+
+        // Redireccionar
+        return redirect()->route('messages.index');
+
     }
 }
