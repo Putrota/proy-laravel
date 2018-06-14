@@ -9,7 +9,7 @@
 		<h3>{{ session('info') }}</h3>
 	@else
 
-		<form method="POST" action="{{ route('messages.update', $message->id) }}">
+		<form method="POST" action="{{ route('mensajes.update', $message->id) }}">
 
 			<?php /*<input type="hidden" name="_token" value="{{ csrf_token() }}"> */ ?>
 

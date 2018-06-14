@@ -43,8 +43,8 @@
 		<nav>
 			<a class="{{ activeMenu('/') }}" href="{{ route('home') }}">Inicio</a>
 			<a class="{{ activeMenu('saludo/*') }}" href="{{ route('saludos', 'Jorge') }}">Saludo</a>
-			<a class="{{ activeMenu('mensajes/create') }}" href="{{ route('messages.create') }}">Contacto</a>
-			<a class="{{ activeMenu('mensajes') }}" href="{{ route('messages.index') }}">Mensajes</a>
+			<a class="{{ activeMenu('mensajes/create') }}" href="{{ route('mensajes.create') }}">Contacto</a>
+			<a class="{{ activeMenu('mensajes') }}" href="{{ route('mensajes.index') }}">Mensajes</a>
 		</nav>
 	</header>	
 

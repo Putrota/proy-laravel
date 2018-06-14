@@ -55,7 +55,7 @@ class MessagesController extends Controller
 
         // Redireccionar
 
-        return redirect()->route('messages.index');
+        return redirect()->route('mensajes.index');
 
     }
 
@@ -108,7 +108,7 @@ class MessagesController extends Controller
         ]);
 
         // Redireccionar
-        return redirect()->route('messages.index');
+        return redirect()->route('mensajes.index');
 
     }
 
@@ -125,7 +125,7 @@ class MessagesController extends Controller
         DB::table('messages')->where('id', $id)->delete();
 
         // Redireccionar
-        return redirect()->route('messages.index');
+        return redirect()->route('mensajes.index');
 
     }
 }

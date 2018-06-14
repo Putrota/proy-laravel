@@ -16,6 +16,8 @@ csrf_token()
 $this->middleware()
 $request
 
+Route::resource('mensajes', 'MessagesController'); // Crea todas las rutas de un REST
+
 Middleware, un guardian una capa que intercepta las peticiones del usuario y verifica que cumpla sus reglas, si algo falla la petición es terminada
 
 
@@ -48,7 +50,18 @@ php artisan make:controller -h MessagesController
 // Crear un controller REST
 php artisan make:controller MessagesController --resource
 
+// Mostrar las rutas definidas
+php artisan route:list
 
 Clases especiales
 use Carbon\Carbon; // manejo de fechas
 use DB; // Operaciones con bases de datos
+
+ELOQUENT
+ORM de laravel
+
+
+BONUS
+Procedimento reemplazar varias cadenas de texto en todo el proyecto
+	Ctrl + Shif + F
+Buscar reemplazar y guardar todo
