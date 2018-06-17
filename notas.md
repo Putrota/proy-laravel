@@ -65,3 +65,14 @@ BONUS
 Procedimento reemplazar varias cadenas de texto en todo el proyecto
 	Ctrl + Shif + F
 Buscar reemplazar y guardar todo
+
+
+ORM
+Protección contra cambios masivos, puedo editar cualquier campo
+Vulnerabilidad mass assignment, desactivar lo siguiente
+
+        Model::unguard(); // Deshabilitamos la protección de asignación masiva
+        {!! csrf_field() !!} // borrar
+        protected $except = [ // modificar el middleware
+        //'mensajes'
+    ];

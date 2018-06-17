@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\Message;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 
 class MessagesController extends Controller
 {
@@ -16,7 +18,11 @@ class MessagesController extends Controller
     public function index()
     {
      
-        $messages = DB::table('messages')->get();
+        //$messages = DB::table('messages')->get();
+
+        //return Message::all(); // Automáticamente se convierte en json
+
+        $messages = Message::all();
 
         return view('messages.index', compact('messages'));
 
@@ -45,13 +51,30 @@ class MessagesController extends Controller
         
         // Guardar mensaje 
 
-        DB::table('messages')->insert([
+        /* DB::table('messages')->insert([
             "nombre" => $request->input('nombre'),
             "email" => $request->input('email'),
             "mensaje" => $request->input('mensaje'),
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
-        ]);
+        ]); */
+
+
+        // Forma 1 de Guardar eloquent
+        /*$message = new Message();// Transparentemente hace un create row
+        $message->nombre = $request->input('nombre');
+        $message->email = $request->input('email');
+        $message->mensaje = $request->input('mensaje');
+        // Con Eloquent no necesitamos pasarle las fechas
+        // se añaden automáticamente
+        $message->save();*/
+
+
+        // Forma 2 guardar eloquent
+        // Necesitamos rellenar el Fillable del model
+
+        Message::create($request->all());
+
 
         // Redireccionar
 
@@ -68,7 +91,10 @@ class MessagesController extends Controller
     public function show($id)
     {
         
-        $message = DB::table('messages')->where('id', $id)->first();
+        // $message = DB::table('messages')->where('id', $id)->first();
+        //$message = Message::find($id); // si no lo encuentra, devuelve null
+        $message = Message::findOrFail($id); // si no lo encuentra genera un 404 y una excepcion
+        // La página 404 se puede definir en views/errors/404.blade.php
 
         return view('messages.show', compact('message'));
 
@@ -83,7 +109,8 @@ class MessagesController extends Controller
     public function edit($id)
     {
         
-        $message = DB::table('messages')->where('id', $id)->first();
+        //$message = DB::table('messages')->where('id', $id)->first();
+        $message = Message::findOrFail($id);
 
         return view('messages.edit', compact('message'));
 
@@ -100,12 +127,15 @@ class MessagesController extends Controller
     {
         
         //Actualizar mensaje
-        DB::table('messages')->where('id', $id)->update([
+        /*DB::table('messages')->where('id', $id)->update([
             "nombre" => $request->input('nombre'),
             "email" => $request->input('email'),
             "mensaje" => $request->input('mensaje'),            
             "updated_at" => Carbon::now(),
-        ]);
+        ]);*/
+
+        $message = Message::findOrFail($id);
+        $message->update($request->all());
 
         // Redireccionar
         return redirect()->route('mensajes.index');
@@ -122,7 +152,9 @@ class MessagesController extends Controller
     {
         
         // Eliminar mensaje
-        DB::table('messages')->where('id', $id)->delete();
+        //DB::table('messages')->where('id', $id)->delete();
+        $message = Message::findOrFail($id);
+        $message->delete();
 
         // Redireccionar
         return redirect()->route('mensajes.index');
