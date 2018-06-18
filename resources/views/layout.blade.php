@@ -44,7 +44,15 @@
 			<a class="{{ activeMenu('/') }}" href="{{ route('home') }}">Inicio</a>
 			<a class="{{ activeMenu('saludo/*') }}" href="{{ route('saludos', 'Jorge') }}">Saludo</a>
 			<a class="{{ activeMenu('mensajes/create') }}" href="{{ route('mensajes.create') }}">Contacto</a>
-			<a class="{{ activeMenu('mensajes') }}" href="{{ route('mensajes.index') }}">Mensajes</a>
+			
+			@if ( auth()->guest() )
+				<a class="{{ activeMenu('login') }}" href="/login">Login</a>
+			@endif
+
+			@if (auth()->check())
+				<a class="{{ activeMenu('mensajes') }}" href="{{ route('mensajes.index') }}">Mensajes</a>
+				<a href="/logout">Cerrar sesión de {{ auth()->user()->name }}</a>
+			@endif
 		</nav>
 	</header>	
 

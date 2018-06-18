@@ -15,6 +15,7 @@ back()
 csrf_token()
 $this->middleware()
 $request
+auth()->guest()
 
 Route::resource('mensajes', 'MessagesController'); // Crea todas las rutas de un REST
 
@@ -68,11 +69,17 @@ Buscar reemplazar y guardar todo
 
 
 ORM
+Crear un model de base de datos
+php artisan make:model Message
+
 Protección contra cambios masivos, puedo editar cualquier campo
 Vulnerabilidad mass assignment, desactivar lo siguiente
+
+
 
         Model::unguard(); // Deshabilitamos la protección de asignación masiva
         {!! csrf_field() !!} // borrar
         protected $except = [ // modificar el middleware
         //'mensajes'
     ];
+
