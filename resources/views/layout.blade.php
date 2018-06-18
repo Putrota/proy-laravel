@@ -1,21 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="utf-8">
-
-	<style type="text/css">
-		
-		.active {
-			text-decoration: none;
-			color: green;
-		}
-
-		.error {
-			color: red;			
-		}
-
-	</style>
-
+	<meta charset="utf-8">	
+	<link rel="stylesheet" type="text/css" href="/css/app.css">
 	<title>Mi sitio</title>
 </head>
 <body>
