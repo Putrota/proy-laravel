@@ -8,27 +8,4 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
-
-nav { 
-
-	width:100%;
-	display: flex;
-	justify-content: space-around;
-
-}
-
-$color : #005400;
-
-.active {
-	text-decoration: none;
-	color: $color;
-}
-
-.error {
-	color: red;			
-}
+@import 'components/navbar';

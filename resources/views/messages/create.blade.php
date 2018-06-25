@@ -17,39 +17,37 @@
 
 			{!! csrf_field() !!}
 
-			<p>			
+			<div class="form-group">			
 				<label for="nombre" >Nombre
 
-				<input type="text" name="nombre" value="{{ old('nombre') }}">
+				<input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}">
 
 				{!! $errors->first('nombre', '<span class="error">:message</span>') !!}
 
 				</label>
-			</p>
+			</div>
 
-			<p>
+			<div class="form-group">
 				<label for="email" >Email
 
-				<input type="text" name="email" value="{{ old('email') }}">
+				<input type="text" class="form-control" name="email" value="{{ old('email') }}">
 
 				{!! $errors->first('email', '<span class="error">:message</span>') !!}
 
 				</label>
-			</p>
+			</div>
 
-			<p>
+			<div class="form-group">
 				<label for="mensaje" >Mensaje
 
-				<textarea name="mensaje" >{{ old('mensaje') }}</textarea>
+				<textarea class="form-control" name="mensaje" >{{ old('mensaje') }}</textarea>
 
 				{!! $errors->first('mensaje', '<span class="error">:message</span>') !!}
 
 				</label>
-			</p>
+			</div>
 
-			<p>
-				<input type="submit" name="Enviar">
-			</p>
+			<button type="submit" class="btn btn-primary">Enviar</button>
 		</form>
 	@endif
 

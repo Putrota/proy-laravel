@@ -3,14 +3,21 @@
 /*Route::get('test', function() {
 
 	$user = new App\User;
-	$user->name = 'Alexis';
-	$user->email = 'alexis@gmail.com';
+	$user->name = 'Estudiante';
+	$user->email = 'estudiante@gmail.com';
 	$user->password = bcrypt('123456');
 	$user->save();
 
 	return $user;
 
 });*/
+
+/* App\User::create([
+	'name' => 'Alvaro',
+	'email' => 'alvaro@email.com',
+	'password' => bcrypt('123456'),
+	'role' => 'moderador'
+]); */
 
 // Esta vez le asignamos el view desde el controlador
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home'])->middleware('example');
@@ -20,6 +27,7 @@ Route::get('saludo/{nombre?}', ['as' => 'saludos', 'uses' => 'PagesController@sa
 
 
 Route::resource('mensajes', 'MessagesController');
+Route::resource('usuarios', 'UsersController');
 
 
 Route::get('login', ['as' =>'login', 'uses' => 'Auth\LoginController@showLoginForm']);

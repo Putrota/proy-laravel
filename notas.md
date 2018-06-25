@@ -102,3 +102,44 @@ Configurar otros formatos en el archivos webpack.mix.js
 	   //.less('resources/assets/less/app.less', 'public/css')
 	   //.sass('resources/assets/sass/app.sass', 'public/css')
 	   ;
+
+// Concepto de role
+// el método que no existe en un modelo nos da un error de query
+
+	auth()->user() // Devuelve una instancia de user
+	auth()->user() == App\user == Eloquent
+
+	Eloquent\Model tiene hasRoles()?
+	Query\Builder tiene hasRoles()?
+	no encuentro hasRoles() ErrorException
+
+
+
+
+
+
+
+
+
+
+
+
+
+BONUS insertar usuarios en la base de datos
+/*Route::get('test', function() {
+
+	$user = new App\User;
+	$user->name = 'Alexis';
+	$user->email = 'alexis@gmail.com';
+	$user->password = bcrypt('123456');
+	$user->save();
+
+	return $user;
+
+});*/
+
+/* App\User::create([
+	'name' => 'Alexis',
+	'email' => 'alexis@email.com',
+	'password' => bcrypt('123456')
+]);*/

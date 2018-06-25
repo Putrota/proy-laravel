@@ -11,44 +11,40 @@
 
 		<form method="POST" action="{{ route('mensajes.update', $message->id) }}">
 
-			<?php /*<input type="hidden" name="_token" value="{{ csrf_token() }}"> */ ?>
-
 			{!! method_field('PUT') !!}
 			{!! csrf_field() !!}
 
-			<p>			
+			<div class="form-group">		
 				<label for="nombre" >Nombre
 
-				<input type="text" name="nombre" value="{{ $message->nombre }}">
+				<input class="form-control" type="text" name="nombre" value="{{ $message->nombre }}">
 
 				{!! $errors->first('nombre', '<span class="error">:message</span>') !!}
 
 				</label>
-			</p>
+			</div>
 
-			<p>
+			<div class="form-group">
 				<label for="email" >Email
 
-				<input type="text" name="email" value="{{ $message->email }}">
+				<input class="form-control" type="text" name="email" value="{{ $message->email }}">
 
 				{!! $errors->first('email', '<span class="error">:message</span>') !!}
 
 				</label>
-			</p>
+			</div>
 
-			<p>
+			<div class="form-group">
 				<label for="mensaje" >Mensaje
 
-				<textarea name="mensaje" >{{ $message->mensaje }}</textarea>
+				<textarea class="form-control" name="mensaje" >{{ $message->mensaje }}</textarea>
 
 				{!! $errors->first('mensaje', '<span class="error">:message</span>') !!}
 
 				</label>
-			</p>
+			</div>
 
-			<p>
-				<input type="submit" name="Enviar">
-			</p>
+			<button type="submit" class="btn btn-primary">Enviar</button>
 		</form>
 	@endif	
 

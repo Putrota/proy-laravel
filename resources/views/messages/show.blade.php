@@ -4,7 +4,7 @@
 
 	<h1>Mensaje</h1>
 
-	<table width="100%" border="1">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>ID</th>

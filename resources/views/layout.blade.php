@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">	
 	<link rel="stylesheet" type="text/css" href="/css/app.css">
+
 	<title>Mi sitio</title>
 </head>
 <body>
@@ -26,26 +27,78 @@
 
 	?>	
 
+
+
+
 	<header>
-		<nav>
-			<a class="{{ activeMenu('/') }}" href="{{ route('home') }}">Inicio</a>
-			<a class="{{ activeMenu('saludo/*') }}" href="{{ route('saludos', 'Jorge') }}">Saludo</a>
-			<a class="{{ activeMenu('mensajes/create') }}" href="{{ route('mensajes.create') }}">Contacto</a>
-			
-			@if ( auth()->guest() )
-				<a class="{{ activeMenu('login') }}" href="/login">Login</a>
-			@endif
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">Navbar</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-			@if (auth()->check())
-				<a class="{{ activeMenu('mensajes') }}" href="{{ route('mensajes.index') }}">Mensajes</a>
-				<a href="/logout">Cerrar sesión de {{ auth()->user()->name }}</a>
-			@endif
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item {{ activeMenu('/') }}">						
+						<a class="nav-link" href="{{ route('home') }}">Inicio <span class="sr-only">(current)</span></a>
+					</li>					
+
+					<li class="nav-item {{ activeMenu('saludo/*') }}">	
+						<a class="nav-link" href="{{ route('saludos', 'Jorge') }}">
+							Saludo</a>
+						</li>
+
+					<li class="nav-item {{ activeMenu('mensajes/create') }}">	
+						<a class="nav-link" href="{{ route('mensajes.create') }}">
+							Contacto</a>
+						</li>
+
+					@if ( auth()->guest() )
+						<li class="nav-item {{ activeMenu('login') }}">
+							<a class="nav-link" href="/login">Login</a></li>
+					@endif
+
+					@if (auth()->check())
+
+						<li class="nav-item {{ activeMenu('mensajes*') }}">
+							<a class="nav-link" href="{{ route('mensajes.index') }}">Mensajes</a>
+						</li>
+
+						@if (auth()->user()->hasRoles(['admin', 'estudiante']))							
+
+							<li class="nav-item {{ activeMenu('usuarios*') }}">
+								<a class="nav-link" href="{{ route('usuarios.index') }}">
+									Usuarios
+								</a>
+							</li>
+
+						@endif
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								{{ auth()->user()->name }}
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="/logout">Cerrar sesión</a>
+							</div>
+						</li>
+					@endif
+
+				</ul>
+				
+			</div>
 		</nav>
-	</header>	
+	</header>
+	
+	<div class="container">
 
-	@yield('contenido')
+		@yield('contenido')
+
+	</div>
 
 	<footer>Copyright {{ date('Y') }}</footer>
 
+	
+	<script type="text/javascript" src="/js/bootstrap.js" ></script>
 </body>
 </html>
