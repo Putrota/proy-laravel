@@ -143,3 +143,24 @@ BONUS insertar usuarios en la base de datos
 	'email' => 'alexis@email.com',
 	'password' => bcrypt('123456')
 ]);*/
+
+
+// Relaciones
+php artisan -h make:model // ayuda
+php artisan make:model Role -m // Crea el model y la migración
+
+Relación 1 a 1, creamos el método que conecta con la clase destino, en este caso se ha usado el cambo role_id, por convención, esto nos devolverá todo el row de la relación
+
+    public function role()
+    {
+
+        return $this->belongsTo(Role::class);
+
+    }
+
+Para conseguir las relaciones inversas, métodoen Role
+public function user()
+	return $this->hasOne(User::class);
+	return $this->hasMany(User::class);
+
+return \App\Role::with('user')->get();

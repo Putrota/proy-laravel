@@ -12,12 +12,18 @@
 
 });*/
 
-/* App\User::create([
-	'name' => 'Alvaro',
-	'email' => 'alvaro@email.com',
-	'password' => bcrypt('123456'),
-	'role' => 'moderador'
-]); */
+//  App\User::create([
+// 	'name' => 'Nemut',
+// 	'email' => 'nemut@email.com',
+// 	'password' => bcrypt('123456'),
+	
+// ]); 
+
+
+Route::get('roles', function() {
+	return \App\Role::with('user')->get();
+});
+
 
 // Esta vez le asignamos el view desde el controlador
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home'])->middleware('example');
