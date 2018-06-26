@@ -164,3 +164,24 @@ public function user()
 	return $this->hasMany(User::class);
 
 return \App\Role::with('user')->get();
+
+
+Para crear una relación muchos a muchos tenemos que crear una tabla pivote, la convención nos dice que pongamos lo siguiente
+// Tablas en sigular, alfabéticamente y separadas por guión bajo
+	php artisan make:migration users roles --- create_role_user
+
+Pero para tener un nombre más descriptivo usamos el siguiente
+	php artisan make:migration create_assigned_roles_table --create=assigned_roles
+
+	// hemos hecho un refresh
+	// para crear nuevos usuarios vamos a usar la herramienta tinker
+	// que chulo es como una consola de php
+	php artisan tinker
+
+	>>> $u = new App\User;\
+... $u->name = "Administrador"\
+... $u->email = "admin@email.php"\
+PHP Parse error: Syntax error, unexpected T_VARIABLE on line 3
+>>> $u = new App\User;                                                                                                         $u->name = "Administrador";                                                                                                    $u->email = "admin@email.php";\
+... $u->password = bcrypt("123123");\
+... $u->save();
