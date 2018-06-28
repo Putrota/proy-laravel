@@ -185,3 +185,18 @@ PHP Parse error: Syntax error, unexpected T_VARIABLE on line 3
 >>> $u = new App\User;                                                                                                         $u->name = "Administrador";                                                                                                    $u->email = "admin@email.php";\
 ... $u->password = bcrypt("123123");\
 ... $u->save();
+
+
+REPASO CREAR VALIDADORES FORMULARIOS
+php artisan make:request UpdateUserRequest
+en el controlador reemplaza al reuqest, es como si lo dotara de más funcioens
+	public function update(UpdateUserRequest $request, $id)
+
+	validación email, único en la tabla users en la columna email
+	unique:users,email'
+
+	validación email, único en la tabla users en la columna email, sin contar el row con id 1
+	unique:users,email,1
+
+
+Poĺiticas de acceso
