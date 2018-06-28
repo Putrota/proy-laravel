@@ -15,10 +15,8 @@ class UsersController extends Controller
     function __construct()
     {
 
-        $this->middleware([
-            'auth', 
-            'roles:admin'
-        ]);
+        $this->middleware('auth');
+        $this->middleware('roles:admin', ['except' => ['edit']]);
 
     }
 
@@ -79,6 +77,8 @@ class UsersController extends Controller
     {
         
         $user = User::findOrFail($id);
+
+        // $this->authorize($user);
 
         return view('users.edit', compact('user'));        
 
