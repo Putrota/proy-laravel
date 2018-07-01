@@ -16,6 +16,7 @@ csrf_token()
 $this->middleware()
 $request
 auth()->guest()
+collect()
 
 Route::resource('mensajes', 'MessagesController'); // Crea todas las rutas de un REST
 
@@ -200,3 +201,52 @@ en el controlador reemplaza al reuqest, es como si lo dotara de más funcioens
 
 
 Poĺiticas de acceso
+clases de laravel que gestionan los accesos a los diferentes recursos
+
+La creamos con el siguiente comando
+	php artisan make:policy UserPolicy
+
+por cáda método del controller creamos un método en esta clase para comprobar la poĺitica de acceso
+
+las politicas se conectan en el AuthServiceProvider.php
+vamos creando los métodos para validadr cada acción y usamos la función authorize
+	$this->authorize('destroy', $user);
+
+En el blade podemos usar la directiva @can para mostrar código dependiendo del usuario que lo esté viendo
+	@can('edit', $user)
+		<a href="{{ route('usuarios.edit', $user->id) }}" class="btn btn-info">Editar</a>
+	@endcan
+
+COLECCIONES DE LARAVEL
+use Illuminate\Support\Collection;
+$collection = new Collection($users)
+$collection = Collection::make($users)
+$collection = collect($users)
+
+$users->first()
+=> [
+     "name" => "asdf",
+     "edad" => 10,
+   ]
+>>> $users->last()
+=> [
+     "name" => "cvbn",
+     "edad" => 14,
+   ]
+>>> $users->count()
+=> 3
+>>> $users->sum('age')
+=> 0
+>>> $users->sum('edad')
+=> 36
+>>> $users->avg('edad')
+=> 12
+>>> $users->slice(-1)
+$users->push(['name' => 'dfgh', 'edad' => 15])
+$users->splice(3, 1)
+$users->pluck('name')
+$users->pluck('name')->contains('asdf')
+$users->pluck('name')->intersect(['user 1', 'user 2'])->count()
+
+https://laravel.com/docs/5.6/collections
+Nota: eloquent nos devuelve colecciones

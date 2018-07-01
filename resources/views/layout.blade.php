@@ -79,8 +79,8 @@
 								{{ auth()->user()->name }}
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="/logout">Cerrar sesión</a>
 								<a class="dropdown-item" href="/usuarios/{{ auth()->id() }}/edit">Mi cuenta</a>
+								<a class="dropdown-item" href="/logout">Cerrar sesión</a>
 							</div>
 						</li>
 					@endif

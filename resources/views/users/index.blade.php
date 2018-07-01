@@ -33,7 +33,7 @@
 							Editar
 						</a>
 
-						<form style="display: inline;" method="POST" action="{{ route('mensajes.destroy', $user->id) }}">
+						<form style="display: inline;" method="POST" action="{{ route('usuarios.destroy', $user->id) }}">
 
 							{!! csrf_field() !!}
 							{!! method_field('DELETE') !!}
