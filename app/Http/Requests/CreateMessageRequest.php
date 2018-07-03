@@ -23,10 +23,14 @@ class CreateMessageRequest extends FormRequest
      */
     public function rules()
     {
+
+        $validate = auth()->check() ? '': 'required';
+
         return [
-            'nombre' => 'required',
-            'email' => 'required|email',
+            'nombre' => $validate,
+            'email' => $validate . '|email',
             'mensaje' => 'required|min:5',
         ];
+
     }
 }

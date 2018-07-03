@@ -59,32 +59,21 @@ class MessagesController extends Controller
     public function store(Request $request)
     {
         
-        // Guardar mensaje 
+        // 1 Guardar mensaje autenticados y no
+        // $message = Message::create($request->all());
 
-        /* DB::table('messages')->insert([
-            "nombre" => $request->input('nombre'),
-            "email" => $request->input('email'),
-            "mensaje" => $request->input('mensaje'),
-            "created_at" => Carbon::now(),
-            "updated_at" => Carbon::now(),
-        ]); */
+        // if( auth()->check() ) {
+        //     auth()->user()->messages()->save($message);
+        // }
 
+        // 2 Si los usuarios están autenticados
+        // auth()->user()->messages()->create($request->all());
 
-        // Forma 1 de Guardar eloquent
-        /*$message = new Message();// Transparentemente hace un create row
-        $message->nombre = $request->input('nombre');
-        $message->email = $request->input('email');
-        $message->mensaje = $request->input('mensaje');
-        // Con Eloquent no necesitamos pasarle las fechas
-        // se añaden automáticamente
-        $message->save();*/
+        // 3 guardar con el id
+        $message = Message::create($request->all());
+        $message->user_id = auth()->id();
 
-
-        // Forma 2 guardar eloquent
-        // Necesitamos rellenar el Fillable del model
-
-        Message::create($request->all());
-
+        $message->save();
 
         // Redireccionar
 

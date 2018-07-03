@@ -250,3 +250,7 @@ $users->pluck('name')->intersect(['user 1', 'user 2'])->count()
 
 https://laravel.com/docs/5.6/collections
 Nota: eloquent nos devuelve colecciones
+
+
+
+Guardando la relación automáticamente

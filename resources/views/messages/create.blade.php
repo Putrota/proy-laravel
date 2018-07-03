@@ -13,29 +13,31 @@
 
 		<form method="POST" action="{{ route('mensajes.store') }}">
 
-			<?php /*<input type="hidden" name="_token" value="{{ csrf_token() }}"> */ ?>
-
 			{!! csrf_field() !!}
 
-			<div class="form-group">			
-				<label for="nombre" >Nombre
+			@if (auth()->guest())
 
-				<input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}">
+				<div class="form-group">			
+					<label for="nombre" >Nombre
 
-				{!! $errors->first('nombre', '<span class="error">:message</span>') !!}
+					<input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}">
 
-				</label>
-			</div>
+					{!! $errors->first('nombre', '<span class="error">:message</span>') !!}
 
-			<div class="form-group">
-				<label for="email" >Email
+					</label>
+				</div>
 
-				<input type="text" class="form-control" name="email" value="{{ old('email') }}">
+				<div class="form-group">
+					<label for="email" >Email
 
-				{!! $errors->first('email', '<span class="error">:message</span>') !!}
+					<input type="text" class="form-control" name="email" value="{{ old('email') }}">
 
-				</label>
-			</div>
+					{!! $errors->first('email', '<span class="error">:message</span>') !!}
+
+					</label>
+				</div>
+
+			@endif
 
 			<div class="form-group">
 				<label for="mensaje" >Mensaje
