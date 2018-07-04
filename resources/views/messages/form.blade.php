@@ -1,6 +1,6 @@
 {!! csrf_field() !!}
 
-@unless ($message->user_id)
+@unless ( $message->user_id )
 
 	<div class="form-group">			
 		<label for="nombre" >Nombre

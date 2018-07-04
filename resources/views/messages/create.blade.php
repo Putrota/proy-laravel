@@ -13,7 +13,7 @@
 
 		<form method="POST" action="{{ route('mensajes.store') }}">
 
-			@include('messages.form', ['message' => App\Message])
+			@include('messages.form', ['message' => new App\Message])
 
 		</form>
 	@endif
