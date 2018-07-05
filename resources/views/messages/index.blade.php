@@ -40,7 +40,7 @@
 						</a>
 					</td>
 					<td>
-						Notas de este mensaje
+						{{ optional( $message->note )->body }}
 					</td>
 					<td>
 						<a class="btn btn-info btn-sm" href="{{ route('mensajes.edit', $message->id)}}" >
