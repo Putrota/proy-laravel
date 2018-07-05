@@ -33,6 +33,9 @@
 
 					</td>
 					<td>
+						{{ optional( $user->note )->body }}
+					</td>
+					<td>
 						<a class="btn btn-info btn-sm" href="{{ route('usuarios.edit', $user->id)}}" >
 							Editar
 						</a>

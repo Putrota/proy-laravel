@@ -10,10 +10,10 @@ class Note extends Model
 	protected $fillable = ['body'];
 
 
-	public function message()
+	public function notable()
 	{
 
-		return $this->belongsTo(Message::class);
+		return $this->morphTo();
 
 	}
 

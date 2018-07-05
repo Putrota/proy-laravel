@@ -23,7 +23,7 @@ class Message extends Model
     public function note()
     {
 
-    	return $this->hasOne(Note::class);
+    	return $this->morphOne(Note::class, 'notable');
 
     }
 

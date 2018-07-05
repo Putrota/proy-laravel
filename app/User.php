@@ -68,4 +68,12 @@ class User extends Authenticatable
     }
 
 
+    public function note()
+    {
+
+        return $this->morphOne(Note::class, 'notable');
+
+    }
+
+
 }

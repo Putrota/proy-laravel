@@ -16,7 +16,8 @@ class CreateNotesTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->increments('id');
             $table->text('body');
-            $table->integer('message_id')->unsigned();
+            $table->integer('notable_id')->unsigned();
+            $table->string('notable_type');
 
             // constrains
             // esta relación se crea a nivel de mysql

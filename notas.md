@@ -295,4 +295,30 @@ set + Nombre atributo + Attribure
 
     }
 
-// Relaciones polimorficas en eloquent
+// Relaciones polimorficas en eloquent, hasOne y hasMany
+Podemos necesitar que varias tablas tengan relación con una tabla central, por ejemplo la capacidad de crear notas de imágens, usuarios, mensajes ...
+
+Para lograrlo definimos lo siguiente en la migración, notable es la palabra clave
+
+	$table->integer('notable_id')->unsigned();
+    $table->string('notable_type')
+
+Y en los modelos como siempre 
+
+App\Menssage
+	public function note()
+    {
+
+    	return $this->morphOne(Note::class, 'notable');
+
+    }
+
+App\User
+	public function note()
+    {
+
+        return $this->morphOne(Note::class, 'notable');
+
+    }
+
+Transparentemente es como si tubieramos un hasOne y un hasMany sencillo
