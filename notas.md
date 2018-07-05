@@ -254,3 +254,45 @@ Nota: eloquent nos devuelve colecciones
 
 
 Guardando la relación automáticamente
+
+
+
+
+// Asignanso relaciones muchos a muchos
+
+$user = new App\User;
+=> App\User {#2327}
+ $user->name = 'Estudiante';
+=> "Estudiante"
+ $user->email = 'estudiante@email';
+=> "estudiante@email"
+ $user->password = bcrypt('123123');
+=> "$2y$10$Fqo6mpiNY6nG8LM1T2uk2.rB255iA.ccOzqFKtFaR1GnPpenq8rQC"
+ $user->save();
+
+$user->roles()->attach(3);
+$user->roles()->detach(3);
+$user->roles()->attach([3,1]);
+$user->roles()->detach([3,1]);
+$user->roles()->sync($request->roles);
+
+
+// Repaso request validation
+
+php artisan make:request CreateUserRequest
+
+
+
+// mutadores
+Para modificar un atributo de formualrio antes de guardarlo, creamos la siguiente clase en el modelo
+
+set + Nombre atributo + Attribure
+
+	public function setPasswordAttribute($password)
+    {
+
+        $this->attributes['password'] = bcrypt($password);
+
+    }
+
+// Relaciones polimorficas en eloquent

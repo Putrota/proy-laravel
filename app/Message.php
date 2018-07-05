@@ -19,4 +19,12 @@ class Message extends Model
 
     }
 
+
+    public function note()
+    {
+
+    	return $this->hasOne(Note::class);
+
+    }
+
 }
