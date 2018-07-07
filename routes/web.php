@@ -1,5 +1,9 @@
 <?php
 
+// DB::listen(function($query) {
+// 	echo "<pre>{$query->sql}</pre>";
+// });
+
 /*Route::get('test', function() {
 
 	$user = new App\User;

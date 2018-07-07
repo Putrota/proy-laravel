@@ -32,7 +32,10 @@ class MessagesController extends Controller
 
         //return Message::all(); // Automáticamente se convierte en json
 
-        $messages = Message::all();
+        //$messages = Message::all();
+
+        // eager loading
+        $messages = Message::with(['user', 'note', 'tags'])->get();
 
         return view('messages.index', compact('messages'));
 

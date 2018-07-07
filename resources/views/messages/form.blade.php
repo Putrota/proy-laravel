@@ -1,6 +1,6 @@
 {!! csrf_field() !!}
 
-@unless ( $message->user_id )
+@if ( $showFields )
 
 	<div class="form-group">			
 		<label for="nombre" >Nombre
@@ -22,7 +22,7 @@
 		</label>
 	</div>
 
-@endunless
+@endif
 
 <div class="form-group">
 	<label for="mensaje" >Mensaje

@@ -41,7 +41,7 @@
 						</a>
 					</td>
 					<td>
-						{{ optional( $message->note )->body }}
+						{{ $message->note ? $message->note->body : '' }}
 					</td>
 					<td>
 						{{ $message->tags->pluck('name')->implode(', ') }}

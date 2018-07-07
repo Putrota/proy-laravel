@@ -324,3 +324,8 @@ App\User
 Transparentemente es como si tubieramos un hasOne y un hasMany sencillo
 
 // Repaso creación tabla pivot
+
+// optimizando consultas
+problema n+1, cada row necesita varias consultas lo solucionamos con
+	Eager Loading, desde el module con una sola llamada lo tenemos todo
+	Esto era lo que ya intuia en Zend, se trata de agrupar todas las consultas adicionales de los rows en una única

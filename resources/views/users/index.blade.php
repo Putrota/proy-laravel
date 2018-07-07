@@ -35,7 +35,7 @@
 
 					</td>
 					<td>
-						{{ optional( $user->note )->body }}
+						{{ $user->note ?  $user->note->body : '' }}
 					</td>
 					<td>{{ $user->tags->pluck('name')->implode(', ') }}</td>
 					<td>

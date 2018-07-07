@@ -101,3 +101,20 @@ Tabla Message
 >>> $m->fresh()->tags; # para que devuelva una instancia fresca
 
 >>> $u->tags()->save(App\Tag::find(2));
+
+
+############################
+
+Mostrar consultas mysql
+
+DB::listen(function($query) {
+	echo "<pre>{$query->sql}</pre>";
+	// echo "<pre>{$query->time}</pre>";
+});
+
+
+
+
+#######################3
+Eager loading
+	$messages = Message::with(['user', 'note', 'tags'])->get();
