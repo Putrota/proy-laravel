@@ -322,3 +322,5 @@ App\User
     }
 
 Transparentemente es como si tubieramos un hasOne y un hasMany sencillo
+
+// Repaso creación tabla pivot
