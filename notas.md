@@ -17,6 +17,7 @@ $this->middleware()
 $request
 auth()->guest()
 collect()
+event()
 
 Route::resource('mensajes', 'MessagesController'); // Crea todas las rutas de un REST
 
@@ -329,3 +330,16 @@ Transparentemente es como si tubieramos un hasOne y un hasMany sencillo
 problema n+1, cada row necesita varias consultas lo solucionamos con
 	Eager Loading, desde el module con una sola llamada lo tenemos todo
 	Esto era lo que ya intuia en Zend, se trata de agrupar todas las consultas adicionales de los rows en una única
+
+
+// Enviando emails
+
+
+// Eventos
+Algo ocurrió, eje registro de usurio
+Listener acciones que se realizan en consecuencia del evento ocurrido
+Eje enviar email después del regitro de usuario
+
+event()
+
+Los eventos son DTOs, objeto de transferencia de datos

@@ -118,3 +118,13 @@ DB::listen(function($query) {
 #######################3
 Eager loading
 	$messages = Message::with(['user', 'note', 'tags'])->get();
+
+
+##########################
+Enviar un email con laravel
+
+Mail::send('emails.contact', ['msg' => $message], function($m) use ($message){
+
+    $m->to($message->email, $message->nombre)->subject('Tu mensaje fue recibido');
+
+});

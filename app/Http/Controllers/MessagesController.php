@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Mail;
 use DB;
 use App\Message;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Events\MessageWasReceibed;
 use Illuminate\Database\Eloquent\Model;
 
 class MessagesController extends Controller
@@ -77,6 +79,10 @@ class MessagesController extends Controller
         $message->user_id = auth()->id();
 
         $message->save();
+
+
+        event(new MessageWasReceibed($message));    
+
 
         // Redireccionar
 
