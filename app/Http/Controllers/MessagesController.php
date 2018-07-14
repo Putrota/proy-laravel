@@ -62,7 +62,8 @@ class MessagesController extends Controller
         $key = 'message.page.' . request('page', 1);
 
         //$messages = Cache::remember($key, 5, function() {
-        $messages = Cache::rememberForever($key, function() {
+        // $messages = Cache::rememberForever($key, function() {
+        $messages = Cache::tags('messages')->rememberForever($key, function() {
             return Message::with(['user', 'note', 'tags'])
                     ->orderBy('created_at', request('sorted', 'DESC'))
                     ->paginate(10);
@@ -107,10 +108,18 @@ class MessagesController extends Controller
         // auth()->user()->messages()->create($request->all());
 
         // 3 guardar con el id
-        $message = Message::create($request->all());
-        $message->user_id = auth()->id();
+        // $message = Message::create($request->all());
+        // $message->user_id = auth()->id();
 
-        $message->save();
+        // Con cache
+        $message = Message::create($request->all());
+
+        if( auth()->check() ) {
+            auth()->user()->messages()->save($message);
+        }
+
+        // Cache::flush();
+        Cache::tags('messages')->flush();
 
 
         event(new MessageWasReceibed($message));    
@@ -140,7 +149,7 @@ class MessagesController extends Controller
         // Cacheando la consulta
 
         // $message = Cache::remember("messages.{$id}", 5, function() use ($id) {
-        $message = Cache::rememberForever("messages.{$id}", 5, function() use ($id) {
+        $message = Cache::tags('messages')->rememberForever("messages.{$id}", 5, function() use ($id) {
             return Message::findOrFail($id);
         });
 
@@ -161,7 +170,7 @@ class MessagesController extends Controller
         // $message = Message::findOrFail($id);
 
         // $message = Cache::remember("messages.{$id}", 5, function() use ($id) {
-        $message = Cache::rememberForever("messages.{$id}", function() use ($id) {
+        $message = Cache::tags('messages')->rememberForever("messages.{$id}", function() use ($id) {
             return Message::findOrFail($id);
         });
 
@@ -190,7 +199,7 @@ class MessagesController extends Controller
         $message = Message::findOrFail($id);
         $message->update($request->all());
 
-        Cache::flush();
+        Cache::tags('messages')->flush();
 
         // Redireccionar
         return redirect()->route('mensajes.index');
@@ -211,7 +220,7 @@ class MessagesController extends Controller
         $message = Message::findOrFail($id);
         $message->delete();
 
-        Cache::flush();
+        Cache::tags('messages')->flush();
 
         // Redireccionar
         return redirect()->route('mensajes.index');
