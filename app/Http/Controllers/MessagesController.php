@@ -8,6 +8,7 @@ use App\Message;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Events\MessageWasReceibed;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 
 class MessagesController extends Controller
@@ -30,6 +31,7 @@ class MessagesController extends Controller
     public function index()
     {
      
+
         //$messages = DB::table('messages')->get();
 
         //return Message::all(); // Automáticamente se convierte en json
@@ -37,7 +39,36 @@ class MessagesController extends Controller
         //$messages = Message::all();
 
         // eager loading
-        $messages = Message::with(['user', 'note', 'tags'])->get();
+        // $messages = Message::with(['user', 'note', 'tags'])->get();
+
+        // $key = 'message.page.' . request('page', 1);
+
+        // if( Cache::has($key) ){
+
+        //     $messages = Cache::get($key);
+
+        // } else {
+
+        //     // pagination with eager loading
+        //     $messages = Message::with(['user', 'note', 'tags'])
+        //         // ->latest()
+        //         ->orderBy('created_at', request('sorted', 'DESC'))
+        //         ->paginate(10);
+
+        //     Cache::put($key, $messages, 5);
+
+        // }
+
+        $key = 'message.page.' . request('page', 1);
+
+        $messages = Cache::remember($key, 5, function() {
+            return Message::with(['user', 'note', 'tags'])
+                    ->orderBy('created_at', request('sorted', 'DESC'))
+                    ->paginate(10);
+        });
+
+
+
 
         return view('messages.index', compact('messages'));
 

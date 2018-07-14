@@ -62,6 +62,13 @@
 				</tr>
 
 			@endforeach
+
+			{{-- {!! $messages->appends(['sorted' => request('sorted')])->links() !!} --}}
+			{{-- {!! $messages->appends(request()->query())->links() !!} --}}
+			{{-- {!! $messages->appends(request()->query())->links('pagination.custom') !!} --}}
+			{{-- {!! $messages->appends(request()->query())->links('pagination::bootstrap-4') !!} --}}
+			{!! $messages->fragment('hash')->appends(request()->query())->links('pagination::bootstrap-4') !!}
+
 		</tbody>
 	</table>
 

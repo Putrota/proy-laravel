@@ -343,3 +343,41 @@ Eje enviar email después del regitro de usuario
 event()
 
 Los eventos son DTOs, objeto de transferencia de datos
+
+
+// Seeders
+Para rellenar tablas
+php artisan make:seeder MessagesTableSeeder
+php artisan db:seed
+php artisan make:seeder UsersTableSeeder
+php artisan db:seed --class=UsersTableSeeder
+php artisan db:seed
+php artisan migrate:refresh --seed
+
+
+// Paginación
+Todos los métodos del paginator https://laravel.com/docs/5.6/pagination
+
+Ejemplos de paginator en la vista
+{!! $messages->appends(['sorted' => request('sorted')])->links() !!}
+{!! $messages->appends(request()->query())->links() !!}
+{!! $messages->appends(request()->query())->links('pagination.custom') !!}
+{!! $messages->appends(request()->query())->links('pagination::bootstrap-4') !!}
+{!! $messages->fragment('hash')->appends(request()->query())->links('pagination::bootstrap-4') !!}
+
+Esto es eloquent, pero ayuda al orden
+$messages = Message::with(['user', 'note', 'tags'])
+            // ->latest()
+            ->orderBy('created_at', request('sorted', 'DESC'))
+            ->paginate(10);
+
+Publicar todas las plantillas para editarlas
+php artisan vendor:publish --tag=laravel-pagination
+
+// Cache en laravel
+// SE guardan datos procesados
+
+Cache::put('key', 'valor', 60);
+Cache::get('key');
+Cache::has('key');
+Cache::flush(); // Borra toda la cache
