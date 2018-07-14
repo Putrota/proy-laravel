@@ -61,7 +61,8 @@ class MessagesController extends Controller
 
         $key = 'message.page.' . request('page', 1);
 
-        $messages = Cache::remember($key, 5, function() {
+        //$messages = Cache::remember($key, 5, function() {
+        $messages = Cache::rememberForever($key, function() {
             return Message::with(['user', 'note', 'tags'])
                     ->orderBy('created_at', request('sorted', 'DESC'))
                     ->paginate(10);
@@ -133,8 +134,15 @@ class MessagesController extends Controller
         
         // $message = DB::table('messages')->where('id', $id)->first();
         //$message = Message::find($id); // si no lo encuentra, devuelve null
-        $message = Message::findOrFail($id); // si no lo encuentra genera un 404 y una excepcion
+        // $message = Message::findOrFail($id); // si no lo encuentra genera un 404 y una excepcion
         // La página 404 se puede definir en views/errors/404.blade.php
+
+        // Cacheando la consulta
+
+        // $message = Cache::remember("messages.{$id}", 5, function() use ($id) {
+        $message = Cache::rememberForever("messages.{$id}", 5, function() use ($id) {
+            return Message::findOrFail($id);
+        });
 
         return view('messages.show', compact('message'));
 
@@ -150,7 +158,12 @@ class MessagesController extends Controller
     {
         
         //$message = DB::table('messages')->where('id', $id)->first();
-        $message = Message::findOrFail($id);
+        // $message = Message::findOrFail($id);
+
+        // $message = Cache::remember("messages.{$id}", 5, function() use ($id) {
+        $message = Cache::rememberForever("messages.{$id}", function() use ($id) {
+            return Message::findOrFail($id);
+        });
 
         return view('messages.edit', compact('message'));
 
@@ -177,6 +190,8 @@ class MessagesController extends Controller
         $message = Message::findOrFail($id);
         $message->update($request->all());
 
+        Cache::flush();
+
         // Redireccionar
         return redirect()->route('mensajes.index');
 
@@ -195,6 +210,8 @@ class MessagesController extends Controller
         //DB::table('messages')->where('id', $id)->delete();
         $message = Message::findOrFail($id);
         $message->delete();
+
+        Cache::flush();
 
         // Redireccionar
         return redirect()->route('mensajes.index');

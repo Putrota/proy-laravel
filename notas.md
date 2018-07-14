@@ -381,3 +381,18 @@ Cache::put('key', 'valor', 60);
 Cache::get('key');
 Cache::has('key');
 Cache::flush(); // Borra toda la cache
+
+//$messages = Cache::remember($key, 5, function() {
+$messages = Cache::rememberForever($key, function() {
+    return Message::with(['user', 'note', 'tags'])
+            ->orderBy('created_at', request('sorted', 'DESC'))
+            ->paginate(10);
+});
+
+// $message = Cache::remember("messages.{$id}", 5, function() use ($id) {
+$message = Cache::rememberForever("messages.{$id}", function() use ($id) {
+    return Message::findOrFail($id);
+});
+
+// Obtener las plantillas del paginator
+php artisan vendor:publish --tag=laravel-pagination
