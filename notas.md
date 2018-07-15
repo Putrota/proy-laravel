@@ -381,6 +381,7 @@ Cache::put('key', 'valor', 60);
 Cache::get('key');
 Cache::has('key');
 Cache::flush(); // Borra toda la cache
+Cache::forget('key'); //Creo que borra según la key
 
 //$messages = Cache::remember($key, 5, function() {
 $messages = Cache::rememberForever($key, function() {
@@ -396,3 +397,52 @@ $message = Cache::rememberForever("messages.{$id}", function() use ($id) {
 
 // Obtener las plantillas del paginator
 php artisan vendor:publish --tag=laravel-pagination
+
+
+// Cache en Redis redis.io, key value store, base de datos no sql
+// es un servidor de cache
+
+1º Hemos hecho una instalación básica de un servidor redis
+	https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04
+
+	Abría que profundizar más en la seguridad, dejo este enlace para el futuro
+
+	https://www.digitalocean.com/community/tutorials/	how-to-secure-your-redis-installation-on-ubuntu-14-04
+
+	Algunos comandos de redis
+
+	sudo systemctl start redis
+	sudo systemctl status redis
+	sudo systemctl restart redis
+	sudo systemctl enable redis
+	sudo netstat -plunt | grep -i redis
+
+	Algunos comandos del redis-cli
+
+		ping
+		set key olakase
+		del key
+		exists key
+		get key
+		keys *
+
+2º En el .env hemos cambiado file por redis
+	CACHE_DRIVER=redis
+
+3º Hemos actualizado los métodos de guardado y borrado para poder utilizar etiquetas
+	$messages = Cache::tags('messages')->rememberForever($key, function() {
+            return Message::with(['user', 'note', 'tags'])
+                    ->orderBy('created_at', request('sorted', 'DESC'))
+                    ->paginate(10);
+        });
+        Cache::tags('messages')->flush();
+        $message = Cache::tags('messages')->rememberForever("messages.{$id}", 5, function() use ($id) {
+            return Message::findOrFail($id);
+        });
+
+4º Algunas pruebas en el tinker, es posible que acepter un array
+	Cache::tags('messages')->get('message.page.1')->all();
+
+
+// Patrón repositorio, para que el contoller no tenga tantas responsabilidades
+Con este patrón nos llevamos el código que interactua con la base de datos a otra clase

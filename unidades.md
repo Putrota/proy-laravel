@@ -128,3 +128,25 @@ Mail::send('emails.contact', ['msg' => $message], function($m) use ($message){
     $m->to($message->email, $message->nombre)->subject('Tu mensaje fue recibido');
 
 });
+
+
+##########################
+Inyectar una clase en un método
+hay que importarla antes con un use, imagino que esto reemplaza a instanciar la clase dentro de la función
+
+public function index( Messages $messages)
+{
+
+}
+
+Inyectar en el constructor
+
+    protected $messages;
+
+
+    public function __construct(Messages $messages)
+    {
+
+      $this->messages = $messages;
+      
+    }
