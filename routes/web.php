@@ -1,5 +1,6 @@
 <?php
 
+
 DB::listen(function($query) {
 	// echo "<pre>{$query->sql}</pre>";
 });

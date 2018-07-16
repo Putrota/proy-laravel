@@ -425,6 +425,7 @@ php artisan vendor:publish --tag=laravel-pagination
 		exists key
 		get key
 		keys *
+		auth password
 
 2º En el .env hemos cambiado file por redis
 	CACHE_DRIVER=redis
@@ -446,3 +447,39 @@ php artisan vendor:publish --tag=laravel-pagination
 
 // Patrón repositorio, para que el contoller no tenga tantas responsabilidades
 Con este patrón nos llevamos el código que interactua con la base de datos a otra clase
+
+
+// Decorador
+Vamos a crear una especie de contenedor que dotará de nuevas funcionalidades a la clase que envuelva.
+En el docrador debemos implementar todos los métodos de la clase a decorar
+
+Si estamos dentro del mismo namespace/directorio no hay necesidad de importar las clase namespace App\Repositories;
+
+Procedimiento:
+	1º Copiamos todo el código del método al método decoraddor.
+	2º Adecuamos la lógia en cada lugar
+	3º en el controller llamamos al decorador
+
+Si no quisieramos la capa de cache, llamamos al repositorio directamente. Podemos decorar un objeto en el camino
+
+Interfaces, podemos definir qué métodos tendrá el decorador definiendolos en  un interface
+	interface MessagesInterface
+	{
+
+Para agregar otro método lo difinimos en la interface
+Podemos inyectar directamente la interface
+	debemos hacer un biding de la interfaz y la clase por defecto (enlazar o vincular)
+
+Haciendo un binding en el route web.php
+	use App\Repositories\Messages;
+	use App\Repositories\CacheMessages;
+	use App\Repositories\MessagesInterface;
+
+	app()->bind(MessagesInterface::class, CacheMessages::class);
+
+Haciendo un binding en  AppServiceProvider.php dentro del método boot
+
+	$this->app->bind(MessagesInterface::class, CacheMessages::class);
+
+// view presenters
+intermediario entre el modelo y el view, para mantener la lógica fuera de las vistas

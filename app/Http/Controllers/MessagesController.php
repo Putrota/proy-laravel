@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Mail;
 use DB;
+use Mail;
 use App\Message;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Repositories\Messages;
 use App\Events\MessageWasReceibed;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\MessagesInterface;
 
 class MessagesController extends Controller
 {
@@ -19,7 +18,7 @@ class MessagesController extends Controller
     protected $messages;
 
 
-    public function __construct(Messages $messages)
+    public function __construct(MessagesInterface $messages)
     {
 
         $this->messages = $messages;
@@ -215,7 +214,7 @@ class MessagesController extends Controller
 
 
         // con repositorio
-        $this->messages->update($request, id);
+        $this->messages->update($request, $id);
 
         // Redireccionar
         return redirect()->route('mensajes.index');
