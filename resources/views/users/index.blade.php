@@ -27,17 +27,11 @@
 
 				<tr>
 					<td>{{ $user->id }}</td>					
-					<td>{{ $user->name }}</td>					
-					<td>{{ $user->email }}</td>					
-					<td>
-
-						{{ $user->roles->pluck('name_display')->implode(', ') }}
-
-					</td>
-					<td>
-						{{ $user->note ?  $user->note->body : '' }}
-					</td>
-					<td>{{ $user->tags->pluck('name')->implode(', ') }}</td>
+					<td>{!! $user->present()->link() !!}</td>
+					<td>{{ $user->email }}</td>
+					<td>{{ $user->present()->roles() }}</td>
+					<td>{{ $user->present()->note() }}</td>
+					<td>{{ $user->present()->tags() }}</td>					
 					<td>
 						<a class="btn btn-info btn-sm" href="{{ route('usuarios.edit', $user->id)}}" >
 							Editar

@@ -18,6 +18,7 @@ $request
 auth()->guest()
 collect()
 event()
+HtmlString()
 
 Route::resource('mensajes', 'MessagesController'); // Crea todas las rutas de un REST
 
@@ -59,6 +60,7 @@ php artisan route:list
 Clases especiales
 use Carbon\Carbon; // manejo de fechas
 use DB; // Operaciones con bases de datos
+use Illuminate\Support\HtmlString;
 
 ELOQUENT
 ORM de laravel

@@ -4,31 +4,21 @@
 namespace App\Presenters;
 
 use App\Message;
+use Illuminate\Support\HtmlString;
 
 
-class MessagePresenter
+class MessagePresenter extends Presenter
 {
 
 
-	protected $message;
-
-
-	public function __construct(Message $message)
-	{
-
-		$this->message = $message;
-
-	}
-
-	
-    public function userName()
+	public function userName()
     {
 
-        if( $this->message->user_id ) {
+        if( $this->model->user_id ) {
             return $this->userLink();
         }
 
-        return $this->message->nombre;
+        return $this->model->nombre;
 
     }
 
@@ -36,11 +26,11 @@ class MessagePresenter
     public function userEmail()
     {
 
-        if( $this->message->user_id ) {
-            return $this->message->user->email;
+        if( $this->model->user_id ) {
+            return $this->model->user->email;
         }
 
-        return $this->message->email;
+        return $this->model->email;
 
     }
 
@@ -48,10 +38,10 @@ class MessagePresenter
     public function link()
     {
 
-    	return '
-    	<a href="' . route('mensajes.show', $this->message->id) . '">
-			' . $this->message->mensaje . '
-		</a>';
+        return new HtmlString('
+                <a href="' . route('mensajes.show', $this->model->id) . '">
+                    ' . $this->model->mensaje . '
+                </a>');
 
     }
 
@@ -59,10 +49,7 @@ class MessagePresenter
     public function userLink()
     {
 
-    	return '
-    	<a href="' . route('usuarios.show', $this->message->user->id) . '">
-			' . $this->message->user->name . '
-		</a>';
+    	return $this->model->user->present()->link();
 
     }
 
@@ -70,7 +57,7 @@ class MessagePresenter
     public function notes()
     {
 
-    	 return $this->message->note ? $this->message->note->body : '';
+    	 return $this->model->note ? $this->model->note->body : '';
 
     }
 
@@ -78,7 +65,7 @@ class MessagePresenter
     public function tags()
     {
 
-    	return $this->message->tags->pluck('name')->implode(', ');
+    	return $this->model->tags->pluck('name')->implode(', ');
 
     }
 

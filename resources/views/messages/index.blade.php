@@ -23,15 +23,10 @@
 				<tr>
 					<td>{{ $message->id }}</td>
 
-					<td>{!! $message->present()->userName() !!}</td>
-					<td>{{ $message->present()->userEmail() }}</td>					
-
-					<td>
-						{!! $message->present()->link() !!}						
-					</td>
-					<td>
-						{{ $message->present()->notes() }}
-					</td>
+					<td>{{ $message->present()->userName() }}</td>
+					<td>{{ $message->present()->userEmail() }}</td>
+					<td>{{ $message->present()->link() }}</td>
+					<td>{{ $message->present()->notes() }}</td>
 					<td>
 						{{ $message->present()->tags() }}
 					</td>
