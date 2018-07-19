@@ -1,6 +1,15 @@
 <?php
 
 
+// Route::get('job', function() {
+
+// 	dispatch(new App\Jobs\SendEmail);
+
+// 	return 'listo';
+
+// });
+
+
 DB::listen(function($query) {
 	// echo "<pre>{$query->sql}</pre>";
 });

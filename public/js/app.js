@@ -17831,6 +17831,13 @@ var app = new Vue({
   el: '#app'
 });
 
+// Nuestro código
+
+$('form').on('submit', function () {
+
+  $(this).find('input[type=submit]').attr('disabled', true);
+});
+
 /***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {

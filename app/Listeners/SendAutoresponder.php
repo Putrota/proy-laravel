@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendAutoresponder
+class SendAutoresponder implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -37,7 +37,7 @@ class SendAutoresponder
 
         }
 
-        Cache::flush();
+        // Cache::flush();
         
         Mail::send('emails.contact', ['msg' => $message], function($m) use ($message){
             $m->to($message->email, $message->nombre)->subject('Tu mensaje fue recibido');

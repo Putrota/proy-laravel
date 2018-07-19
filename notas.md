@@ -18,7 +18,7 @@ $request
 auth()->guest()
 collect()
 event()
-HtmlString()
+dispatch()
 
 Route::resource('mensajes', 'MessagesController'); // Crea todas las rutas de un REST
 
@@ -61,6 +61,7 @@ Clases especiales
 use Carbon\Carbon; // manejo de fechas
 use DB; // Operaciones con bases de datos
 use Illuminate\Support\HtmlString;
+\Log::info('Enviando mensaje ...'); // Hay veces que llama a las clases de esta manera
 
 ELOQUENT
 ORM de laravel
@@ -485,3 +486,31 @@ Haciendo un binding en  AppServiceProvider.php dentro del método boot
 
 // view presenters
 intermediario entre el modelo y el view, para mantener la lógica fuera de las vistas
+
+
+// queues an jobs
+postergar tareas pesadas
+Almacenamos en memoria la tarea para procesarla más tarde.
+en el archivo .env usamos el driver de redis
+
+Ejemplo de uso
+Route::get('job', function() {
+
+	dispatch(new App\Jobs\SendEmail);
+
+	return 'listo';
+
+});
+
+Comandor queue
+
+php artisan make:job SendEmail // Crear una clase jobs
+php artisan queue:work // Procesar los jobs
+
+php artisan queue:failed-table // Crear tabla jobs mysql
+php artisan migrate
+
+php artisan queue:work
+php artisan queue:work --tries=5
+php artisan queue:failed
+php artisan queue:flush

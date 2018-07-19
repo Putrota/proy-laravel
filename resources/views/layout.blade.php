@@ -100,6 +100,6 @@
 	<footer>Copyright {{ date('Y') }}</footer>
 
 	
-	<script type="text/javascript" src="/js/bootstrap.js" ></script>
+	<script type="text/javascript" src="/js/app.js" ></script>
 </body>
 </html>
