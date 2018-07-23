@@ -514,3 +514,9 @@ php artisan queue:work
 php artisan queue:work --tries=5
 php artisan queue:failed
 php artisan queue:flush
+php artisan queue:listen
+
+
+// Socket io con Laravel Echo
+
+// pruebas unitarias
