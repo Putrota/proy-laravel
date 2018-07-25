@@ -8,6 +8,9 @@ use App\Message;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Events\MessageWasReceibed;
+use Illuminate\Routing\Redirector;
+use Illuminate\Events\Dispatcher as Event;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\MessagesInterface;
 
@@ -16,12 +19,15 @@ class MessagesController extends Controller
 
 
     protected $messages;
+    protected $view;
 
 
-    public function __construct(MessagesInterface $messages)
+    public function __construct(MessagesInterface $messages, ViewFactory $view, Redirector $redirect)
     {
 
         $this->messages = $messages;
+        $this->view = $view;
+        $this->redirect = $redirect;
         $this->middleware('auth', ['except' => ['create', 'store']]);
 
     }
@@ -75,7 +81,8 @@ class MessagesController extends Controller
 
         $messages = $this->messages->getPaginated();
 
-        return view('messages.index', compact('messages'));
+        // return view('messages.index', compact('messages'));
+        return $this->view->make('messages.index', compact('messages'));
 
     }
 
@@ -87,7 +94,7 @@ class MessagesController extends Controller
     public function create()
     {
         
-        return view('messages.create');
+        return $this->view->make('messages.create');
 
     }
 
@@ -97,7 +104,7 @@ class MessagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Event $event)
     {
         
         // 1 Guardar mensaje autenticados y no
@@ -127,13 +134,14 @@ class MessagesController extends Controller
         // Con repositorio
         $message = $this->messages->store($request);
 
-        event(new MessageWasReceibed($message));    
+        $event->fire(new MessageWasReceibed($message));    
 
 
         // Redireccionar
 
-        return redirect()->route('mensajes.create')
-            ->with('info', 'Hemos recibido tu mensaje');
+        return $this->redirect->route('mensajes.create')
+            ->with('info', 'Hemos recibido tu mensaje')
+            ;
 
     }
 
@@ -161,7 +169,7 @@ class MessagesController extends Controller
         // Con repositorio
         $message = $this->messages->findById($id);
 
-        return view('messages.show', compact('message'));
+        return $this->view->make('messages.show', compact('message'));
 
     }
 
@@ -185,7 +193,7 @@ class MessagesController extends Controller
         //Con repositorio
         $message = $this->messages->findById($id);
 
-        return view('messages.edit', compact('message'));
+        return $this->view->make('messages.edit', compact('message'));
 
     }
 
@@ -217,7 +225,7 @@ class MessagesController extends Controller
         $this->messages->update($request, $id);
 
         // Redireccionar
-        return redirect()->route('mensajes.index');
+        return $this->redirect->route('mensajes.index');
 
     }
 
@@ -238,10 +246,10 @@ class MessagesController extends Controller
         // Cache::tags('messages')->flush();
 
         // Repositorio
-        $this->messages->destory( $id );
+        $this->messages->destroy( $id );
 
         // Redireccionar
-        return redirect()->route('mensajes.index');
+        return $this->redirect->route('mensajes.index');
 
     }
 }

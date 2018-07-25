@@ -150,3 +150,14 @@ Inyectar en el constructor
       $this->messages = $messages;
       
     }
+
+
+##############################
+Llamar al view en el controller
+
+protected $view;
+
+public function __construct( \Illuminate\Contracts\View\Factory $view ){
+
+public function index(){
+  return $this->view->make('messages.index', compact('messages'));
